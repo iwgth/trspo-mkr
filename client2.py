@@ -1,7 +1,7 @@
 import socket
 import numpy as np
 import time
-#dev
+#dev1
 def communicate_with_server():
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.connect(('127.0.0.1', 12345))
