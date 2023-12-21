@@ -1,7 +1,7 @@
 import socket
 import numpy as np
 import time
-#dev1
+
 def communicate_with_server():
     client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client.connect(('127.0.0.1', 12345))
@@ -9,16 +9,16 @@ def communicate_with_server():
     matrix_a = np.random.randint(1, 10, size=(n, m))
     matrix_b = np.random.randint(1, 10, size=(m, l))
 
-    print(f"Generated matrix by client2:")
-    print("Matrix A:")
+    print(f"створюємо матрицю клієнтом:")
+    print("матриця A:")
     print(matrix_a)
-    print("Matrix B:")
+    print("матриця B:")
     print(matrix_b)
 
-    print("Sending matrix sizes to server")
+    print("надсилання розміру матриці до серверу")
     client.send(f"{n},{m},{l}".encode())
 
-    print("Sending matrices to server")
+    print("надсилання матриці до серверу")
     client.send(matrix_a.tobytes())
     client.send(matrix_b.tobytes())
 
@@ -31,15 +31,15 @@ def communicate_with_server():
         result_data += chunk
 
     if len(result_data) == 0:
-        print("Server closed")
+        print("сервер закрився")
     else:
         result_matrix = np.frombuffer(result_data, dtype=int).reshape(n, l)
 
-        print("Received result matrix:")
+        print("прийнятий результат матриці:")
         print(result_matrix)
 
     client.close()
-    print("Connection closed")
+    print("конект закритий")
 
 if __name__ == "__main__":
     communicate_with_server()
